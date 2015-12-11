@@ -1,5 +1,5 @@
-import Middleware      from 'frp-middleware'
-import { deserialize } from './header'
+import Middleware from 'frp-middleware'
+import { header } from 'semantic-internet-protocol'
 
 class Deserializer extends Middleware {
   constructor() {
@@ -16,7 +16,7 @@ class Deserializer extends Middleware {
     this.buffer += data
 
     if(!this.header)
-      [ this.header, this.buffer ] = deserialize(buffer)
+      [ this.header, this.buffer ] = header.deserialize(buffer)
     if(!!this.header && this.diff > -1)
       return this._seperateHeaderAndBody()
   }

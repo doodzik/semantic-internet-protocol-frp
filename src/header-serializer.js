@@ -1,9 +1,8 @@
-import Middleware    from 'frp-middleware'
 import { serialize } from './header'
+import { header as headerUtil }    from 'semantic-internet-protocol'
 
-class Serializer extends Middleware {
-  serialize(data) {
-    return data
-  }
+export function serialize(data) {
+  const [ header, body ] = data
+  header.version = 1.0
+  return [ headerUtil.serialize(header), body ]
 }
-

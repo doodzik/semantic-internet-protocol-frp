@@ -1,16 +1,19 @@
-import Middleware from 'frp-middleware'
 import { INSERT } from './header'
+// import { header, knowledge, interest } from 'semantic-internet-protocol'
 
-class Insert extends Middleware {
-  run(data) {
-    const [ header, body ] = data
-    if(header && header.command === INSERT)
-      return deserilize(body)
-  }
+const deserilize (data) {
+  const [ header, body ] = data
+  if(header && header.command === INSERT)
+    return deserilize(body)
+}
 
-  deserilize(body) {
-    return body
+const serilize (data) {
+  const [ meta, body ] = data
+  if(meta && meta.command === INSERT) {
+    const message = serilize(body)
+    mate.contentLength = message.length
+    return [ meta, body ]
   }
 }
 
-export default Insert
+export default { deserilize, serialize }
